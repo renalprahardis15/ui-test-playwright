@@ -1,0 +1,25 @@
+stages:
+  - test
+
+tests:
+  stage: test
+  # image: 
+  parallel:
+    matrix:
+      - PROJECT: ['chromium']
+  script:
+    - npm install ci
+    - npm run clean:allure
+    - mkdir -p .auth
+    - touch playwright.env.json
+    - echo ${ENV_STAGING} > playwright.env.json
+    - npx playwright test --project=$PROJECT --reporter=${REPORTER}
+  after_script:
+    - npm run generate:allure
+    - aws configure set region ${S3_BUCKET_REGION}
+    - aws s3 sync /builds/playwright/e2e-test-dashboard/allure-report/. s3://${S3_BUCKET}
+  timeout: 5 hours 00 minutes
+  only:
+    - staging
+    - merge_requests
+  allow_failure: true

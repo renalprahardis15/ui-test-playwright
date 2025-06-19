@@ -1,0 +1,33 @@
+{
+  "name": "ui-test-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate:allure": "allure generate allure-results --clean -o allure-report",
+    "clean:allure": "allure generate --clean --output allure-results",
+    "test:ci": "cross-env ENV=production npx playwright test --project=with-setup --debug",
+    "debug:staging": "cross-env ENV=staging npx playwright test --debug --project=no-setup",
+    "debug:prod": "cross-env ENV=production npx playwright test --debug --project=no-setup",
+    "test:staging": "cross-env ENV=staging npx playwright test --project=no-setup --workers=2",
+    "test:prod": "cross-env ENV=production npx playwright test --project=no-setup --workers=2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renalprahardis15/ui-test-playwright.git"
+  },
+  "author": "",
+  "license": "ISC",
+    "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20.11.13",
+    "allure-commandline": "^2.21.0",
+    "allure-playwright": "^2.9.2",
+    "cross-env": "^7.0.3",
+    "playwright-testrail-reporter": "^1.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/renalprahardis15/ui-test-playwright/issues"
+  },
+  "homepage": "https://github.com/renalprahardis15/ui-test-playwright#readme"
+}
